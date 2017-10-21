@@ -12,12 +12,14 @@ import { createSelector } from 'reselect'
 import byId, * as fromById from './byId'
 import idsList, * as fromIdsList from './idsList'
 import status, * as fromStatus from './status'
+import visibility, * as fromVisibility from './visibility'
 import pagination, * as fromPagination from './pagination'
 
 export default (type) => combineReducers({
   byId: byId(type),
   idsList: idsList(type),
   status: status(type),
+  visibility: visibility(type),
   pagination: pagination(type)
 })
 
@@ -35,6 +37,15 @@ export const getEntities = (type) => createSelector(
     if (entitiesIds) {
       return entitiesIds.map(id => fromById.getEntity(state[type].byId, id))
     }
+  }
+)
+
+// Get all todos by the current visibility filter
+export const getEntitiesByVisibility = (type) => createSelector(
+  state => getEntities(type)(state),
+  state => fromVisibility.getVisibilityFilter(state[type].visibility),
+  (entities, filter) => {
+    return entities
   }
 )
 
