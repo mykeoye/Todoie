@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from 'App/stores/resources/actions'
-import { getEntities, getEntitiesByVisibility } from 'App/stores/resources'
+import { getEntitiesByFilter } from 'App/stores/resources'
+import { getVisibilityFilter } from 'App/stores/resources/visibility'
 
 import AddTodo from './components/AddTodo'
 import TodoList from './components/TodoList'
 import FilterTodo from './components/FilterTodo'
 
-const Todos = ({ todos, addTodo, toggleTodo, filterTodos }) => {
+const Todos = ({ todos, addTodo, toggleTodo, filterTodos, currentFilter }) => {
   return (
     <section className='pa3 pa5-ns'>
       <AddTodo onSubmit={({todo}, _, {reset}) => {
@@ -20,7 +21,7 @@ const Todos = ({ todos, addTodo, toggleTodo, filterTodos }) => {
 
       <TodoList {...{ todos, toggleTodo }} />
 
-      <FilterTodo filterTodos={filterTodos} />
+      <FilterTodo {...{filterTodos, currentFilter}} />
     </section>
   )
 }
@@ -31,7 +32,8 @@ Todos.propTypes = {
 
 export default connect(
   state => ({
-    todos: getEntitiesByVisibility('todos')(state)
+    todos: getEntitiesByFilter('todos')(state),
+    currentFilter: getVisibilityFilter('todos')(state)
   }),
   dispatch => ({
     addTodo: (text) => dispatch(actions.submitEntity({ text }, {type: 'todos'})),
