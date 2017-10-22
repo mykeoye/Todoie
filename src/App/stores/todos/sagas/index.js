@@ -13,7 +13,7 @@ import * as schema from '../schema'
  * Subroutines
  */
 
-export function* receiveResponse (response) {
+export function * receiveResponse (response) {
   if (response.ok) {
     const todo = normalize(response.data.todo, schema.todo)
 
@@ -25,7 +25,7 @@ export function* receiveResponse (response) {
   }
 }
 
-export function* addTodo () {
+export function * addTodo () {
   while (true) {
     const action = yield take(t.SUBMIT_ENTITY)
     if (action.meta && action.meta.type === 'todos') {
@@ -41,7 +41,7 @@ export function* addTodo () {
   }
 }
 
-export function* toggleTodo () {
+export function * toggleTodo () {
   while (true) {
     const action = yield take(t.UPDATE_ENTITY)
     if (action.meta && action.meta.type === 'todos') {
@@ -57,7 +57,7 @@ export function* toggleTodo () {
  * Watchers
  */
 
-export default function* watchTodos () {
+export default function * watchTodos () {
   yield [
     fork(addTodo),
     fork(toggleTodo)
