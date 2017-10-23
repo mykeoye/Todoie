@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react'
 
 import Item from '../Item'
 
-const ItemList = ({ items, viewTodos }) => (
+const ItemList = ({ items }) => (
   <ul className='list pl0 ml0 center mw6 ba b--light-silver br2'>
     {items.map(
       (item, key) =>
         <Item
           {...item}
-          {...{key, viewTodos}}
+          {...{key}}
         />)
     }
   </ul>

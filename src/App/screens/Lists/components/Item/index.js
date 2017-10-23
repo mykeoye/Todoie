@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 
-const Item = ({ name, viewTodos }) => (
+import { Link } from 'react-router'
+
+const Item = ({ id, name, router }) => (
   <li
-    onClick={() => viewTodos()}
     className='ph3 pv3 bb b--light-silver'>
-    {name}
+    <Link to={`/lists/${id}`}>{name}</Link>
   </li>
 )
 

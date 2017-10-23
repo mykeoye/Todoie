@@ -70,6 +70,16 @@ export const getEntitiesByFilter = (type) => createSelector(
   (entities, filter) => filterEntities(entities, filter)
 )
 
+export const getChildEntitiesByFilter = (childType, parentType, parentId) => createSelector(
+  state => getEntitiesByFilter(childType)(state),
+  state => getEntity(parentType, parentId)(state),
+  (children, parent) => {
+    if (parent && children) {
+      return children.filter(child => (child.listID === parent.id))
+    }
+  }
+)
+
 export const isLoading = (state, type) => fromStatus.isLoading(state[type].status)
 
 export const getErrors = (state, type) => fromStatus.getErrors(state[type].status)

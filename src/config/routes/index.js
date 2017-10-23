@@ -29,6 +29,7 @@ const Lists = (nextState, cb) => {
 const routes = (
   <Route path='/' component={App}>
     <IndexRoute getComponent={Lists} />
+    <Route path='lists/:listId' getComponent={Todos} />
   </Route>
 )
 
